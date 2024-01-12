@@ -1,4 +1,4 @@
-version: '3.5'
+version: '3'
 
 services:
   vmagent:
@@ -9,7 +9,7 @@ services:
     ports:
       - 8429:8429
     volumes:
-      - vmagentdata:/vmagentdata
+      - vmagent_data:/vmagentdata
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
     command:
       - '--promscrape.config=/etc/prometheus/prometheus.yml'
@@ -26,7 +26,7 @@ services:
       - 2003:2003
       - 4242:4242
     volumes:
-      - vmdata:/storage
+      - vm_data:/storage
     command:
       - '--storageDataPath=/storage'
       - '--graphiteListenAddr=:2003'
@@ -43,10 +43,8 @@ services:
       - victoriametrics
     ports:
       - 3000:3000
-    environment:
-      - GF_LOG_FILTERS=rendering:debug
     volumes:
-      - grafanadata:/var/lib/grafana
+      - grafana_data:/var/lib/grafana
       - ./provisioning/:/etc/grafana/provisioning/
       - ./dashboards/victoriametrics.json:/var/lib/grafana/dashboards/vm.json
     networks:
@@ -54,9 +52,13 @@ services:
     restart: always
 
 volumes:
-  vmagentdata: {}
-  vmdata: {}
-  grafanadata: {}
+  vmagent_data:
+    name: vmagent_data
+  vm_data:
+    name: vm_data
+  grafana_data:
+    name: grafana_data
 
 networks:
   vm_net:
+    name: vm_net

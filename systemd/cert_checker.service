@@ -1,0 +1,11 @@
+[Unit]
+Description=Cert Checker
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=PROJECT_DIR/bin/cert-checker -c PROJECT_DIR/ssl-checks/config.yaml
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

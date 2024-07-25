@@ -1,0 +1,74 @@
+services:
+  vmagent:
+    container_name: vmagent
+    image: victoriametrics/vmagent
+    depends_on:
+      - victoriametrics
+    ports:
+      - 8429:8429
+    volumes:
+      - vmagent_data:/vmagentdata
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--promscrape.config=/etc/prometheus/prometheus.yml'
+      - '--remoteWrite.url=http://victoriametrics:8428/api/v1/write'
+    networks:
+      - vm_net
+    logging:
+      options:
+        max-size: 256M
+        max-file: 3
+    restart: always
+
+  victoriametrics:
+    container_name: victoriametrics
+    image: victoriametrics/victoria-metrics
+    ports:
+      - 8428:8428
+      - 2003:2003
+      - 4242:4242
+    volumes:
+      - vm_data:/storage
+    command:
+      - '--storageDataPath=/storage'
+      - '--graphiteListenAddr=:2003'
+      - '--opentsdbListenAddr=:4242'
+      - '--httpListenAddr=:8428'
+    networks:
+      - vm_net
+    logging:
+      options:
+        max-size: 256M
+        max-file: 3
+    restart: always
+
+  grafana:
+    container_name: grafana
+    image: grafana/grafana
+    depends_on:
+      - victoriametrics
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./provisioning/:/etc/grafana/provisioning/
+      - ./dashboards/victoriametrics.json:/var/lib/grafana/dashboards/vm.json
+    networks:
+      - vm_net
+    logging:
+      options:
+        max-size: 256M
+        max-file: 3
+    restart: always
+
+volumes:
+  vmagent_data:
+    name: vmagent_data
+  vm_data:
+    name: vm_data
+  grafana_data:
+    name: grafana_data
+
+networks:
+  vm_net:
+    name: vm_net

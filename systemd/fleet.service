@@ -1,0 +1,20 @@
+[Unit]
+Description=Fleet
+After=network.target
+
+[Service]
+Type=simple
+LimitNOFILE=8192
+ExecStart=PROJECT_DIR/bin/fleet serve \
+  --mysql_address=127.0.0.1:4306 \
+  --mysql_database=fleet \
+  --mysql_username=fleet_user \
+  --mysql_password=ChixxengahgheewayeiUUUKKK \
+  --redis_address=127.0.0.1:7379 \
+  --server_cert=server.cert \
+  --server_key=server.key \
+  --logging_json
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

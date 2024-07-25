@@ -1,0 +1,12 @@
+[Unit]
+Description=Node Exporter
+After=network.target
+
+[Service]
+Type=simple
+User=node_exporter
+ExecStart=PROJECT_DIR/bin/node_exporter --collector.textfile.directory /var/lib/node_exporter/textfile_collector --collector.systemd --collector.processes
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

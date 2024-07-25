@@ -1,0 +1,9 @@
+.idea/
+data/
+bin/
+
+vmutils/
+alertmanager-tools/
+fleet-utils/
+
+fleet-osquery_1.28.0_amd64.deb

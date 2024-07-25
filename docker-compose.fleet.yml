@@ -1,0 +1,85 @@
+services:
+  mysql:
+    image: mysql:8.0.36
+    container_name: mysql_monitoring
+    environment:
+      - MYSQL_USER=fleet_user
+      - MYSQL_PASSWORD=ChixxengahgheewayeiUUUKKK
+      - MYSQL_ROOT_PASSWORD=RChiengaahgheewIIEIEOayei5eechuw1
+      - MYSQL_DATABASE=fleet
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - fleet_net
+    ports:
+      - "4306:3306"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+  adminer:
+    image: adminer:4-standalone
+    container_name: adminer_monitoring
+    networks:
+      - fleet_net
+    ports:
+      - "8081:8080"
+    depends_on:
+      - mysql
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "1"
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000
+    deploy:
+      resources:
+        limits:
+          memory: 64M
+
+  redis:
+    image: redis:7.2-alpine
+    container_name: redis_monitoring
+    command: [
+      "redis-server",
+      "--appendonly",
+      "yes",
+      # "--requirepass",
+      # "L2hgheewayei5eechW2"
+    ]
+    volumes:
+      - redis_data:/data
+    networks:
+      - fleet_net
+    ports:
+      - "7379:6379"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "1"
+    ulimits:
+      memlock: -1
+
+volumes:
+  redis_data:
+    name: redis_data_monitoring
+  mysql_data:
+    name: mysql_data_monitoring
+
+networks:
+  fleet_net:
+    driver: bridge
+    name: fleet_net

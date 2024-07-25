@@ -1,0 +1,11 @@
+[Unit]
+Description=AlertManager
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=PROJECT_DIR/bin/alertmanager --config.file=PROJECT_DIR/alertmanager.yml
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

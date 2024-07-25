@@ -1,0 +1,5 @@
+loglevel: debug
+port: 9056  # Optional
+intervalminutes: 5
+certificates:
+  - dns: example.com

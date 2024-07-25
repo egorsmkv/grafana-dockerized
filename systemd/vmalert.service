@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=PROJECT_DIR/bin/vmalert -rule=PROJECT_DIR/rules.yml -datasource.url=http://localhost:8428 -notifier.url=http://localhost:9093 -remoteWrite.url=http://localhost:8428 -remoteRead.url=http://localhost:8428
+ExecStart=PROJECT_DIR/bin/vmalert -rule=PROJECT_DIR/vmalert_rules.yml -datasource.url=http://localhost:8428 -notifier.url=http://localhost:9093 -remoteWrite.url=http://localhost:8428 -remoteRead.url=http://localhost:8428
 Restart=always
 
 [Install]

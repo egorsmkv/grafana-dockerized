@@ -48,10 +48,8 @@ mkdir alertmanager-tools && cd alertmanager-tools
 wget https://github.com/prometheus/alertmanager/releases/download/v0.27.0/alertmanager-0.27.0.linux-amd64.tar.gz
 tar xf alertmanager-0.27.0.linux-amd64.tar.gz
 
-cd alertmanager-0.27.0.linux-amd64/
-
-cp ./alertmanager ../../bin/alertmanager
-cp ./amtool ../../bin/amtool
+mv ./alertmanager-0.27.0.linux-amd64/alertmanager ../bin/alertmanager
+mv ./alertmanager-0.27.0.linux-amd64/amtool ../bin/amtool
 ```
 
 ```shell

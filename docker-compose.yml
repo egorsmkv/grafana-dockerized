@@ -16,8 +16,8 @@ services:
       - vm_net
     logging:
       options:
-        max-size: 256M
-        max-file: 3
+        max-size: "256M"
+        max-file: "3"
     restart: always
 
   victoriametrics:
@@ -38,8 +38,8 @@ services:
       - vm_net
     logging:
       options:
-        max-size: 256M
-        max-file: 3
+        max-size: "256M"
+        max-file: "3"
     restart: always
 
   grafana:
@@ -57,8 +57,8 @@ services:
       - vm_net
     logging:
       options:
-        max-size: 256M
-        max-file: 3
+        max-size: "256M"
+        max-file: "3"
     restart: always
 
 volumes:

@@ -11,21 +11,4 @@ scrape_configs:
   - job_name: 'node'
     static_configs:
       - targets:
-          - 'example.com:9100'  # Node Exporter
-  - job_name: 'caddy'
-    honor_timestamps: true
-    scrape_interval: 15s
-    scrape_timeout: 10s
-    metrics_path: /private/****/metrics
-    scheme: https
-    static_configs:
-      - targets:
-          - 'example.com'
-  - job_name: 'cert-checker'
-    scrape_interval: 15s
-    scrape_timeout: 10s
-    metrics_path: /metrics
-    scheme: http
-    static_configs:
-      - targets:
-          - 'grafana.example.com:9056'
+          - '100.115.88.2:9100'  # Node Exporter
